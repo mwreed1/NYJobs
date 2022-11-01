@@ -25,3 +25,9 @@ The data was first published January 8th 2020, and was most recently updated
 October 25th, 2022. The NYC OpenData project maintains the data. The data is 
 available for download via csv. Thus, we intend to download the csv file and 
 upload it directly into R. 
+
+This data-set contains data from jobs listing around NYC, and is collected from 
+the City of New York's official jobs website. Various features about jobs is 
+provided, including "Business title", `Agency`, `number of positions`, `level`, 
+`job category`, `Full time/Part time`, `Salary Range from`， `Salary Range to`, 
+`Title Code Number` and so on. 
