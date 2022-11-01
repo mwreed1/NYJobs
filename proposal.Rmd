@@ -2,21 +2,23 @@
 
 ## Research topic
 
-In this project, we focus on how various jobs are paid differently in New York City 
-by analyzing internal features, including related industries, position levels, geographical
-locations, residence requirements etc. Studying how these features are correlated and have
-different significance levels on the output salaries will facilitate the understanding of 
-the labour market structure of NYC and help job seekers know what positions are statistically
-better suited and paid. Ultimately, we aim to take advantage of sophisticated visualization 
-tools to display all the critical information and the rules they’re playing. Another potential
-factor worth exploring is the pandemic happening throughout the past few years. Hence we will
-make our analysis and output reproducible to keep monitoring its short-term and long-term 
-effects on how the labour industries are affected. Job postings on the City of New York’s 
-official jobs site will serve as the data source. 
+In this project, we focus on how various jobs are paid differently in New York 
+City by analyzing internal features, including related industries, position 
+levels, geographical locations, residence requirements etc. Studying how these 
+features are correlated and have different significance levels on the output 
+salaries will facilitate our understanding of the labor market structure of NYC 
+and help job seekers know what positions are statistically better suited and 
+paid. Ultimately, we aim to take advantage of sophisticated visualization tools 
+to display all the critical information and the rules they’re playing. Another 
+potential factor worth exploring is the pandemic happening throughout the past 
+few years. Hence we will make our analysis and output reproducible to keep 
+monitoring its short-term and long-term effects on how the labor industries are 
+affected. Job postings on the City of New York’s official jobs site will serve 
+as the data source. 
 
 ## Data availability
 
-The primary dataset we have chosen to use is the [NYC Jobs](https://catalog.data.gov/dataset/nyc-jobs) from data.gov. The data-set 
+The primary data-set we have chosen to use is the [NYC Jobs](https://catalog.data.gov/dataset/nyc-jobs) from data.gov. The data-set 
 contains data from jobs listings around NYC. The data is collected from the City 
 of New York's official jobs website [here](https://www1.nyc.gov/jobs/index.page). 
 The data was first published January 8th 2020, and was most recently updated 
