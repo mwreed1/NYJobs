@@ -31,3 +31,16 @@ the City of New York's official jobs website. Various features about jobs is
 provided, including "Business title", `Agency`, `number of positions`, `level`, 
 `job category`, `Full time/Part time`, `Salary Range from`， `Salary Range to`, 
 `Title Code Number` and so on. 
+
+A brief explanation to some of the columns:
+Agency: Name of the New York City agency (“agency” or “hiring agency”) where a job vacancy exists. 
+Posting Type: Identifies whether a job posting is an Internal or External posting. Internal postings are available to City employees only and external postings are available to the general public. 
+Job Category: Broad Classification of where all the jobs would fall in.
+Full-time/Part-Time: Time frame of a job. 
+Salary Range From: The beginning salary cap for that particular opening.
+Salary Range To: The highest cap for that particular job opening. 
+Salary Frequency: The payment factor for the job, hourly or annual.
+Work Location: The location of the workplace.
+Job Description: A brief idea of what the job will contain.
+Minimum Qual Requirements: The minimum qualifications a candidate must possess for the job.
+Preferred Skills: Optimal skills which the posting is looking for.
