@@ -27,7 +27,10 @@ October 25th, 2022. The NYC OpenData project maintains the data. The data is
 available for download via csv. Thus, we intend to download the csv file and 
 upload it directly into R. 
 
-We chose to use this data set because it had several variables that we could explore the relationship between and because the data was easily downloadable in a form that could be imported directly into R with little pre-processing. 
+There are two reasons that we chose this dataset:
+Firstly, the data was easily downloadable in a form that could be imported directly into R with little pre-processing. 
+Secondly, it had several variables that we could explore the relationship between.There are many interesting things to discover, such as what categories have the most jobs, what kinds of jobs tend to have a higher salary, whether a higher leveljob has a higher salary, which location tends to pay more.
+
 
 A brief explanation to some of the columns:
 
