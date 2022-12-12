@@ -34,7 +34,9 @@ jobs <- jobs %>%
       str_detect(agency_simple, "District Attorney") ~ "District Attorney",
       str_detect(agency_simple, "Community Board") ~ "Community Board",
       TRUE ~ agency_simple
-    )
+    ),
+    posting_date = as.Date(posting_date, "%m/%d/%y"),
+    posting_updated = as.Date(posting_updated, "%m/%d/%y")
   )
 ```
 
@@ -42,6 +44,7 @@ jobs <- jobs %>%
 
 ```{r plot1}
 jobs %>%
+  filter(salary_frequency == "Annual") %>%
   group_by(category_simple) %>%
   summarize(mean_salary = mean(salary_range_from)) %>%
   ggplot(
@@ -81,6 +84,7 @@ jobs %>%
 
 ```{r plot3}
 jobs %>%
+  filter(salary_frequency == "Annual") %>%
   group_by(agency_simple) %>%
   summarize(mean_salary = mean(salary_range_from)) %>%
   ggplot(
@@ -95,6 +99,23 @@ jobs %>%
     x = "Average starting salary (USD)",
     y = "Posting Agency",
     title = "Average starting salary by posting agency",
+    caption = "Source: nyc.gov"
+  ) +
+  theme_minimal()
+```
+
+
+```{r}
+jobs %>%
+  filter(salary_frequency == "Annual", salary_range_from != 0) %>%
+  ggplot(aes(x = posting_updated, y = salary_range_from)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(se=F) +
+  scale_y_continuous(labels = label_dollar()) +
+  labs(
+    x = "Date",
+    y = "Starting salary",
+    title = "Starting salary over time",
     caption = "Source: nyc.gov"
   ) +
   theme_minimal()

@@ -77,7 +77,14 @@ jobs <- jobs %>%
       str_detect(job_category, "Social Services") ~ "Social Services",
       str_detect(job_category, "Technology") ~ "Technology & Data",
       TRUE ~ "Other"
-    )
+    ),
+    agency_simple = str_to_title(agency),
+    agency_simple = case_when(
+      str_detect(agency_simple, "District Attorney") ~ "District Attorney",
+      str_detect(agency_simple, "Community Board") ~ "Community Board",
+      TRUE ~ agency_simple
+    ),
+    posting_date = as.Date(posting_date, "%m/%d/%y")
   )
 ```
 
