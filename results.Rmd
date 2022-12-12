@@ -11,7 +11,31 @@ jobs <- read_csv("data/NYC_Jobs.csv")
 
 ```{r data-clean}
 jobs <- jobs %>%
-  clean_names()
+  clean_names() %>%
+  mutate(
+    category_simple = case_when(
+      str_detect(job_category, "Human Resources") ~ "Human Resources",
+      str_detect(job_category, "Building Operations") ~ "Building Operations",
+      str_detect(job_category, "Administrative Support") ~ "Administrative Support",
+      str_detect(job_category, "Communications") ~ "Communications",
+      str_detect(job_category, "Constituent Services") ~ "Constituent Services",
+      str_detect(job_category, "Engineering") ~ "Engineering",
+      str_detect(job_category, "Finance") ~ "Finance",
+      str_detect(job_category, "Health") ~ "Health",
+      str_detect(job_category, "Legal") ~ "Legal",
+      str_detect(job_category, "Policy") ~ "Policy, Research & Analysis",
+      str_detect(job_category, "Public Safety") ~ "Public Safety",
+      str_detect(job_category, "Social Services") ~ "Social Services",
+      str_detect(job_category, "Technology") ~ "Technology & Data",
+      TRUE ~ "Other"
+    ),
+    agency_simple = str_to_title(agency),
+    agency_simple = case_when(
+      str_detect(agency_simple, "District Attorney") ~ "District Attorney",
+      str_detect(agency_simple, "Community Board") ~ "Community Board",
+      TRUE ~ agency_simple
+    )
+  )
 ```
 
 # Results
@@ -38,7 +62,7 @@ jobs %>%
 ```
 
 
-```{r plot1}
+```{r plot2}
 jobs %>%
   ggplot(
     aes(
@@ -50,6 +74,27 @@ jobs %>%
     x = "Number of jobs posted",
     y = "Simplified job category",
     title = "Number of jobs postings by category",
+    caption = "Source: nyc.gov"
+  ) +
+  theme_minimal()
+```
+
+```{r plot3}
+jobs %>%
+  group_by(agency_simple) %>%
+  summarize(mean_salary = mean(salary_range_from)) %>%
+  ggplot(
+    aes(
+      y = fct_reorder(agency_simple, mean_salary), 
+      x = mean_salary
+      )
+    ) +
+  geom_col() +
+  scale_x_continuous(labels = label_dollar()) +
+  labs(
+    x = "Average starting salary (USD)",
+    y = "Posting Agency",
+    title = "Average starting salary by posting agency",
     caption = "Source: nyc.gov"
   ) +
   theme_minimal()
