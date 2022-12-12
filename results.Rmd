@@ -1,1 +1,57 @@
+```{r libs, include=F}
+library(tidyverse)
+library(redav)
+library(janitor)
+library(scales)
+```
+
+```{r read-data}
+jobs <- read_csv("data/NYC_Jobs.csv")
+```
+
+```{r data-clean}
+jobs <- jobs %>%
+  clean_names()
+```
+
 # Results
+
+```{r plot1}
+jobs %>%
+  group_by(category_simple) %>%
+  summarize(mean_salary = mean(salary_range_from)) %>%
+  ggplot(
+    aes(
+      y = fct_reorder(category_simple, mean_salary), 
+      x = mean_salary
+      )
+    ) +
+  geom_col() +
+  scale_x_continuous(labels = label_dollar()) +
+  labs(
+    x = "Average starting salary (USD)",
+    y = "Simplified job category",
+    title = "Average starting salary by job category",
+    caption = "Source: nyc.gov"
+  ) +
+  theme_minimal()
+```
+
+
+```{r plot1}
+jobs %>%
+  ggplot(
+    aes(
+      y = fct_rev(fct_infreq(category_simple)), 
+      )
+    ) +
+  geom_bar() +
+  labs(
+    x = "Number of jobs posted",
+    y = "Simplified job category",
+    title = "Number of jobs postings by category",
+    caption = "Source: nyc.gov"
+  ) +
+  theme_minimal()
+```
+

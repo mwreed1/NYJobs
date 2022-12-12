@@ -60,7 +60,25 @@ jobs <- read_csv("data/NYC_Jobs.csv")
 
 ```{r data-clean}
 jobs <- jobs %>%
-  clean_names()
+  clean_names() %>%
+  mutate(
+    category_simple = case_when(
+      str_detect(job_category, "Human Resources") ~ "Human Resources",
+      str_detect(job_category, "Building Operations") ~ "Building Operations",
+      str_detect(job_category, "Administrative Support") ~ "Administrative Support",
+      str_detect(job_category, "Communications") ~ "Communications",
+      str_detect(job_category, "Constituent Services") ~ "Constituent Services",
+      str_detect(job_category, "Engineering") ~ "Engineering",
+      str_detect(job_category, "Finance") ~ "Finance",
+      str_detect(job_category, "Health") ~ "Health",
+      str_detect(job_category, "Legal") ~ "Legal",
+      str_detect(job_category, "Policy") ~ "Policy, Research & Analysis",
+      str_detect(job_category, "Public Safety") ~ "Public Safety",
+      str_detect(job_category, "Social Services") ~ "Social Services",
+      str_detect(job_category, "Technology") ~ "Technology & Data",
+      TRUE ~ "Other"
+    )
+  )
 ```
 
 
@@ -74,4 +92,6 @@ plot_missing(
     select(recruitment_contact, hours_shift, post_until, work_location_1, additional_information, preferred_skills, full_time_part_time_indicator, minimum_qual_requirements, job_category, career_level, to_apply)
   )
 ```
+
+
 
