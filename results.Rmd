@@ -36,34 +36,39 @@ jobs <- jobs %>%
       TRUE ~ agency_simple
     ),
     posting_date = as.Date(posting_date, "%m/%d/%y"),
-    posting_updated = as.Date(posting_updated, "%m/%d/%y")
+    posting_updated = as.Date(posting_updated, "%m/%d/%y"),
+    level_simple = case_when(
+      startsWith(level, "0") ~ "0",
+      startsWith(level, "M") ~ "M",
+      TRUE ~ "1"
+    )
   )
 ```
 
 # Results
 
-```{r plot1}
+
+```{r plot1b}
 jobs %>%
   filter(salary_frequency == "Annual") %>%
   group_by(category_simple) %>%
-  summarize(mean_salary = mean(salary_range_from)) %>%
-  ggplot(
-    aes(
-      y = fct_reorder(category_simple, mean_salary), 
-      x = mean_salary
-      )
-    ) +
-  geom_col() +
+  summarize(
+    mean_starting = mean(salary_range_from),
+    mean_ending = mean(salary_range_to)
+    ) %>%
+  ggplot(aes(y = fct_reorder(category_simple, mean_ending))) +
+  geom_point(aes(x = mean_starting)) +
+  geom_point(aes(x = mean_ending)) +
+  geom_linerange(aes(xmin = mean_starting, xmax = mean_ending)) + 
   scale_x_continuous(labels = label_dollar()) +
   labs(
-    x = "Average starting salary (USD)",
+    x = "Salary range (USD)",
     y = "Simplified job category",
-    title = "Average starting salary by job category",
+    title = "Salary range by job category",
     caption = "Source: nyc.gov"
   ) +
   theme_minimal()
 ```
-
 
 ```{r plot2}
 jobs %>%
@@ -86,22 +91,25 @@ jobs %>%
 jobs %>%
   filter(salary_frequency == "Annual") %>%
   group_by(agency_simple) %>%
-  summarize(mean_salary = mean(salary_range_from)) %>%
-  ggplot(
-    aes(
-      y = fct_reorder(agency_simple, mean_salary), 
-      x = mean_salary
-      )
-    ) +
-  geom_col() +
+  summarize(
+    mean_starting = mean(salary_range_from),
+    mean_ending = mean(salary_range_to)
+    ) %>%
+  ggplot(aes(y = fct_reorder(agency_simple, mean_ending))) +
+  geom_point(aes(x = mean_starting)) +
+  geom_point(aes(x = mean_ending)) +
+  geom_linerange(aes(xmin = mean_starting, xmax = mean_ending)) + 
   scale_x_continuous(labels = label_dollar()) +
   labs(
-    x = "Average starting salary (USD)",
+    x = "Salary range (USD)",
     y = "Posting Agency",
-    title = "Average starting salary by posting agency",
+    title = "Salary range by posting agency",
     caption = "Source: nyc.gov"
   ) +
-  theme_minimal()
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 5)
+  )
 ```
 
 
@@ -120,4 +128,33 @@ jobs %>%
   ) +
   theme_minimal()
 ```
+
+```{r}
+jobs %>%
+  filter(salary_frequency == "Annual") %>%
+  group_by(level, level_simple) %>%
+  summarize(
+    mean_starting = mean(salary_range_from),
+    mean_ending = mean(salary_range_to),
+    .groups = "drop"
+    ) %>%
+  ggplot(aes(y = level, color = level_simple)) +
+  geom_point(aes(x = mean_starting)) +
+  geom_point(aes(x = mean_ending)) +
+  geom_linerange(aes(xmin = mean_starting, xmax = mean_ending)) + 
+  scale_x_continuous(labels = label_dollar()) +
+  scale_x_continuous(labels = label_dollar()) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(
+    x = "Average starting salary (USD)",
+    y = "Simplified job level",
+    title = "Average starting salary by job level",
+    caption = "Source: nyc.gov"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none"
+  )
+```
+
 
