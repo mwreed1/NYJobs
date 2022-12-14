@@ -84,7 +84,7 @@ jobs <- jobs %>%
       str_detect(agency_simple, "Community Board") ~ "Community Board",
       TRUE ~ agency_simple
     ),
-    posting_date = as.Date(posting_date, "%m/%d/%y")
+    posting_date = as.Date(posting_date, "%m/%d/%Y")
   )
 ```
 

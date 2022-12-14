@@ -35,8 +35,8 @@ jobs <- jobs %>%
       str_detect(agency_simple, "Community Board") ~ "Community Board",
       TRUE ~ agency_simple
     ),
-    posting_date = as.Date(posting_date, "%m/%d/%y"),
-    posting_updated = as.Date(posting_updated, "%m/%d/%y"),
+    posting_date = as.Date(posting_date, "%m/%d/%Y"),
+    posting_updated = as.Date(posting_updated, "%m/%d/%Y"),
     level_simple = case_when(
       startsWith(level, "0") ~ "0",
       startsWith(level, "M") ~ "M",
@@ -162,8 +162,12 @@ After looking at the different factors that influenced salary range, we wanted t
 
 ```{r}
 jobs %>%
-  filter(salary_frequency == "Annual", salary_range_from != 0) %>%
-  ggplot(aes(x = posting_updated, y = salary_range_from)) +
+  filter(
+    salary_frequency == "Annual", 
+    salary_range_from != 0, 
+    lubridate::year(posting_date) < 2022
+    ) %>%
+  ggplot(aes(x = posting_date, y = salary_range_from)) +
   geom_point(alpha = 0.5) +
   geom_smooth(se=F) +
   scale_y_continuous(labels = label_dollar()) +
@@ -176,6 +180,27 @@ jobs %>%
   theme_minimal()
 ```
 
-While there does not appear to be a huge change over time, job salaries seem to drop a bit during July 2020. 
+```{r}
+jobs %>%
+  filter(
+    salary_frequency == "Annual", 
+    salary_range_from != 0, 
+    lubridate::year(posting_date) >= 2022
+    ) %>%
+  ggplot(aes(x = posting_date, y = salary_range_from)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(se=F) +
+  scale_y_continuous(labels = label_dollar()) +
+  labs(
+    x = "Date",
+    y = "Starting salary",
+    title = "Starting salary over time",
+    caption = "Source: nyc.gov"
+  ) +
+  theme_minimal()
+```
+
+
+While there does not appear to be a huge change over time, job salaries seemed to peak around 2021. When focusing on 2022, it seems as though salaries peaked around August.
 
 
