@@ -47,6 +47,31 @@ jobs <- jobs %>%
 
 # Results
 
+## Data exploration
+
+In order to explore our data, we first wanted to look at the distribution of different job postings by category.
+
+```{r plot2}
+jobs %>%
+  ggplot(
+    aes(
+      y = fct_rev(fct_infreq(category_simple)), 
+      )
+    ) +
+  geom_bar() +
+  labs(
+    x = "Number of jobs posted",
+    y = "Simplified job category",
+    title = "Number of jobs postings by category",
+    caption = "Source: nyc.gov"
+  ) +
+  theme_minimal()
+```
+
+Based on this plot, engineering jobs clearly are the most prolific, with human resources and legal also being common in the NYC job board. The least common job postings by far are administrative support.
+
+
+Next, we wanted to see what sort of factors impacted the salary range of a job.
 
 ```{r plot1b}
 jobs %>%
@@ -70,22 +95,9 @@ jobs %>%
   theme_minimal()
 ```
 
-```{r plot2}
-jobs %>%
-  ggplot(
-    aes(
-      y = fct_rev(fct_infreq(category_simple)), 
-      )
-    ) +
-  geom_bar() +
-  labs(
-    x = "Number of jobs posted",
-    y = "Simplified job category",
-    title = "Number of jobs postings by category",
-    caption = "Source: nyc.gov"
-  ) +
-  theme_minimal()
-```
+Technology and data appeared to have the highest average salary potential at around 150k USD Administrative support had the lowest average salary potential at around 50k USD. The 'other' category had the largest salary range, which makes sense because it is a miscellaneous category with several possible job types. 
+
+Next we looked at the salary ranges of the different posting agencies.
 
 ```{r plot3}
 jobs %>%
@@ -112,22 +124,9 @@ jobs %>%
   )
 ```
 
+The Municipal Water Fin Authority posted jobs with the highest average salary potential, at around 140k USD. The Business Integrity Commission posted jobs with the lowest average salary potential, around 55k USD.
 
-```{r}
-jobs %>%
-  filter(salary_frequency == "Annual", salary_range_from != 0) %>%
-  ggplot(aes(x = posting_updated, y = salary_range_from)) +
-  geom_point(alpha = 0.5) +
-  geom_smooth(se=F) +
-  scale_y_continuous(labels = label_dollar()) +
-  labs(
-    x = "Date",
-    y = "Starting salary",
-    title = "Starting salary over time",
-    caption = "Source: nyc.gov"
-  ) +
-  theme_minimal()
-```
+Next we looked into how a job's level impacted its salary. We split the level into three categories based on the code given to the level.
 
 ```{r}
 jobs %>%
@@ -156,5 +155,27 @@ jobs %>%
     legend.position = "none"
   )
 ```
+
+The levels that started with M had the highest average salary potentials, while the levels that started with numbers tended to be associated with lower average salary potentials. The level with the highest average salary potential is MY. In fact, the lower end of the salary range is higher than the higher end of any other level's average salary range. 
+
+After looking at the different factors that influenced salary range, we wanted to see if the salaries of jobs posted changed over time. In order to do so, we only looked at the lower end of the salary ranges for each job posted in our data set. 
+
+```{r}
+jobs %>%
+  filter(salary_frequency == "Annual", salary_range_from != 0) %>%
+  ggplot(aes(x = posting_updated, y = salary_range_from)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(se=F) +
+  scale_y_continuous(labels = label_dollar()) +
+  labs(
+    x = "Date",
+    y = "Starting salary",
+    title = "Starting salary over time",
+    caption = "Source: nyc.gov"
+  ) +
+  theme_minimal()
+```
+
+While there does not appear to be a huge change over time, job salaries seem to drop a bit during July 2020. 
 
 
