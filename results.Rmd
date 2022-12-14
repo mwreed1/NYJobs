@@ -42,7 +42,8 @@ jobs <- jobs %>%
       startsWith(level, "0") ~ "0",
       startsWith(level, "M") ~ "M",
       TRUE ~ "1"
-    )
+    ),
+    skills = if_else(is.na(preferred_skills), "no", "yes")
   )
 ```
 
@@ -237,11 +238,27 @@ jobs %>%
 While there does not appear to be a huge change over time, job salaries seemed to peak around 2021. When focusing on 2022, it seems as though salaries peaked around August.
 
 
+Here we looked into whether or not a job posting requires specific skills. 
+
 ```{r}
 jobs %>%
-  arrange(desc(salary_range_to))
+  filter(career_level != "NA") %>%
+  ggplot(
+    aes(
+      x = fct_recode(fct_relevel(career_level, c("Student", "Entry-Level", "Experienced (non-manager)", "Manager", "Executive")), "Experienced" = "Experienced (non-manager)"), 
+      fill = skills)
+  ) +
+  geom_bar(position = "fill") +
+  scale_fill_brewer(palette = "Set2") +
+  labs(
+    x = "Career level",
+    y = NULL,
+    fill = "Required skills?",
+    title = "Does the posting require previous skills?",
+    subtitle = "By career level"
+  ) +
+  theme_minimal()
 ```
 
 
-
-
+As the seniority increases, so does the percentage of postings that require previous skills. This makes sense based on what we expected. 
