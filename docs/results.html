@@ -23,7 +23,7 @@
 <meta name="author" content="Margaret Reed, Yaxin Hu, Yizhou Zhao" />
 
 
-<meta name="date" content="2022-12-13" />
+<meta name="date" content="2022-12-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -84,7 +84,10 @@
 <li class="chapter" data-level="3.2" data-path="data.html"><a href="data.html#cleaning-transformation"><i class="fa fa-check"></i><b>3.2</b> Cleaning / transformation</a></li>
 <li class="chapter" data-level="3.3" data-path="data.html"><a href="data.html#missing-value-analysis"><i class="fa fa-check"></i><b>3.3</b> Missing value analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a></li>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#data-exploration"><i class="fa fa-check"></i><b>4.1</b> Data exploration</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -108,12 +111,25 @@
             <section class="normal" id="section-">
 <div id="results" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Results<a href="results.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><img src="finalproj_files/figure-html/plot1b-1.png" width="672" /></p>
+<div id="data-exploration" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Data exploration<a href="results.html#data-exploration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In order to explore our data, we first wanted to look at the distribution of different job postings by category.</p>
 <p><img src="finalproj_files/figure-html/plot2-1.png" width="672" /></p>
+<p>Based on this plot, engineering jobs clearly are the most prolific, with human resources and legal also being common in the NYC job board. The least common job postings by far are administrative support.</p>
+<p>Next, we wanted to see what sort of factors impacted the salary range of a job.</p>
+<p><img src="finalproj_files/figure-html/plot1b-1.png" width="672" /></p>
+<p>Technology and data appeared to have the highest average salary potential at around 150k USD Administrative support had the lowest average salary potential at around 50k USD. The ‘other’ category had the largest salary range, which makes sense because it is a miscellaneous category with several possible job types.</p>
+<p>Next we looked at the salary ranges of the different posting agencies.</p>
 <p><img src="finalproj_files/figure-html/plot3-1.png" width="672" /></p>
+<p>The Municipal Water Fin Authority posted jobs with the highest average salary potential, at around 140k USD. The Business Integrity Commission posted jobs with the lowest average salary potential, around 55k USD.</p>
+<p>Next we looked into how a job’s level impacted its salary. We split the level into three categories based on the code given to the level.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>The levels that started with M had the highest average salary potentials, while the levels that started with numbers tended to be associated with lower average salary potentials. The level with the highest average salary potential is MY. In fact, the lower end of the salary range is higher than the higher end of any other level’s average salary range.</p>
+<p>After looking at the different factors that influenced salary range, we wanted to see if the salaries of jobs posted changed over time. In order to do so, we only looked at the lower end of the salary ranges for each job posted in our data set.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>While there does not appear to be a huge change over time, job salaries seem to drop a bit during July 2020.</p>
 
+</div>
 </div>
             </section>
 
