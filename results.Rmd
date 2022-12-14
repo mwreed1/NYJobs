@@ -3,6 +3,7 @@ library(tidyverse)
 library(redav)
 library(janitor)
 library(scales)
+library(lubridate)
 ```
 
 ```{r read-data}
@@ -87,9 +88,9 @@ jobs %>%
   geom_linerange(aes(xmin = mean_starting, xmax = mean_ending)) + 
   scale_x_continuous(labels = label_dollar()) +
   labs(
-    x = "Salary range (USD)",
+    x = "Average salary range (USD)",
     y = "Simplified job category",
-    title = "Salary range by job category",
+    title = "Average salary range by job category",
     caption = "Source: nyc.gov"
   ) +
   theme_minimal()
@@ -113,9 +114,9 @@ jobs %>%
   geom_linerange(aes(xmin = mean_starting, xmax = mean_ending)) + 
   scale_x_continuous(labels = label_dollar()) +
   labs(
-    x = "Salary range (USD)",
+    x = "Average salary range (USD)",
     y = "Posting Agency",
-    title = "Salary range by posting agency",
+    title = "Average salary range by posting agency",
     caption = "Source: nyc.gov"
   ) +
   theme_minimal() +
@@ -125,6 +126,36 @@ jobs %>%
 ```
 
 The Municipal Water Fin Authority posted jobs with the highest average salary potential, at around 140k USD. The Business Integrity Commission posted jobs with the lowest average salary potential, around 55k USD.
+
+
+Next we looked into how a job's career level impacted its salary.
+
+```{r}
+jobs %>%
+  filter(salary_frequency == "Annual", career_level != "NA") %>%
+  group_by(career_level) %>%
+  summarize(
+    mean_starting = mean(salary_range_from),
+    mean_ending = mean(salary_range_to),
+    .groups = "drop"
+    ) %>%
+  ggplot(aes(y = fct_reorder(career_level, mean_ending))) +
+  geom_point(aes(x = mean_starting)) +
+  geom_point(aes(x = mean_ending)) +
+  geom_linerange(aes(xmin = mean_starting, xmax = mean_ending)) + 
+  scale_x_continuous(labels = label_dollar()) +
+  scale_x_continuous(labels = label_dollar()) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(
+    x = "Average salary range (USD)",
+    y = "Career level",
+    title = "Average salary range by career level",
+    caption = "Source: nyc.gov"
+  ) +
+  theme_minimal()
+```
+The data shows that executives make the most on average and entry-level positions make the least. This trend makes sense with what we know about career levels. 
+
 
 Next we looked into how a job's level impacted its salary. We split the level into three categories based on the code given to the level.
 
@@ -145,9 +176,9 @@ jobs %>%
   scale_x_continuous(labels = label_dollar()) +
   scale_fill_brewer(palette = "Set2") +
   labs(
-    x = "Average starting salary (USD)",
+    x = "Average salary range (USD)",
     y = "Simplified job level",
-    title = "Average starting salary by job level",
+    title = "Average salary range by job level",
     caption = "Source: nyc.gov"
   ) +
   theme_minimal() +
@@ -165,7 +196,8 @@ jobs %>%
   filter(
     salary_frequency == "Annual", 
     salary_range_from != 0, 
-    lubridate::year(posting_date) < 2022
+    year(posting_date) < 2022,
+    year(posting_date) >= 2014
     ) %>%
   ggplot(aes(x = posting_date, y = salary_range_from)) +
   geom_point(alpha = 0.5) +
@@ -185,7 +217,7 @@ jobs %>%
   filter(
     salary_frequency == "Annual", 
     salary_range_from != 0, 
-    lubridate::year(posting_date) >= 2022
+    year(posting_date) >= 2022
     ) %>%
   ggplot(aes(x = posting_date, y = salary_range_from)) +
   geom_point(alpha = 0.5) +
@@ -195,6 +227,7 @@ jobs %>%
     x = "Date",
     y = "Starting salary",
     title = "Starting salary over time",
+    subtitle = "During 2022",
     caption = "Source: nyc.gov"
   ) +
   theme_minimal()
@@ -202,5 +235,13 @@ jobs %>%
 
 
 While there does not appear to be a huge change over time, job salaries seemed to peak around 2021. When focusing on 2022, it seems as though salaries peaked around August.
+
+
+```{r}
+jobs %>%
+  arrange(desc(salary_range_to))
+```
+
+
 
 
