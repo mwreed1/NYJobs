@@ -229,18 +229,27 @@ jobs %>%
 It seems that Student have the lowest salary, and executive have the highest salary, and excutive has the largest salary range.
 
 Then we want to see if there is any relationship between level and career level.
+
 ```{r}
 library(viridis) # viridis color palette
 # create plot
 
+   #fct_relevel(reshuffled_level,c("Student","Entry-Level","Experienced #(non-manager)","Manager","Executive"))%>%
+
+library(viridis) # viridis color palette
+# create plot
+
 g1<-jobs%>%
-   ggplot(aes(level, career_level)) + 
+    filter(!is.na(career_level))%>%
+   ggplot(aes(x=level, y=fct_relevel(career_level,"Student","Entry-Level","Experienced (non-manager)","Manager","Executive"))) + 
    scale_fill_viridis() +
    labs( title = "Relationship between level and career_level")
 
 
 # show plot
 g1 + geom_bin2d(binwidth = c(5, 5)) # modify bin width
+
+
 ```
 
 According to the plot, we can see that job level is highly related to career_level, for example, student only can take low level job, from 00 to 02, Entry_level tend to take 00-04 and M1 jobs; Executive tend to take high level jobs from M3 to MY; and Experienced seems to have a high range level of jobs.
