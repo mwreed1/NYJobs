@@ -58,35 +58,7 @@ for the job.
 jobs <- read_csv("data/NYC_Jobs.csv")
 ```
 
-```{r data-clean}
-jobs <- jobs %>%
-  clean_names() %>%
-  mutate(
-    category_simple = case_when(
-      str_detect(job_category, "Human Resources") ~ "Human Resources",
-      str_detect(job_category, "Building Operations") ~ "Building Operations",
-      str_detect(job_category, "Administrative Support") ~ "Administrative Support",
-      str_detect(job_category, "Communications") ~ "Communications",
-      str_detect(job_category, "Constituent Services") ~ "Constituent Services",
-      str_detect(job_category, "Engineering") ~ "Engineering",
-      str_detect(job_category, "Finance") ~ "Finance",
-      str_detect(job_category, "Health") ~ "Health",
-      str_detect(job_category, "Legal") ~ "Legal",
-      str_detect(job_category, "Policy") ~ "Policy, Research & Analysis",
-      str_detect(job_category, "Public Safety") ~ "Public Safety",
-      str_detect(job_category, "Social Services") ~ "Social Services",
-      str_detect(job_category, "Technology") ~ "Technology & Data",
-      TRUE ~ "Other"
-    ),
-    agency_simple = str_to_title(agency),
-    agency_simple = case_when(
-      str_detect(agency_simple, "District Attorney") ~ "District Attorney",
-      str_detect(agency_simple, "Community Board") ~ "Community Board",
-      TRUE ~ agency_simple
-    ),
-    posting_date = as.Date(posting_date, "%m/%d/%Y")
-  )
-```
+In order to clean the data we first made sure that all of the variable names were in a form that were easy to reference, no spaces or capital letters. Then we made some simplified variables, so that analysis was not so complicated. These variables included job category, agency, and job level. We had to transform the dates into a form that R would recognize. Finally, we made a new variable based on if a job posting had required skills or not. 
 
 
 ## Missing value analysis
@@ -96,9 +68,11 @@ colSums(is.na(jobs)) %>%
   sort(decreasing = TRUE)
 plot_missing(
   jobs %>% 
+    clean_names() %>%
     select(recruitment_contact, hours_shift, post_until, work_location_1, additional_information, preferred_skills, full_time_part_time_indicator, minimum_qual_requirements, job_category, career_level, to_apply)
   )
 ```
 
 
+It seems that the most common missing variable is `recruitment_contact`, with `hours_shift` and `post_until` also being quite common.
 

@@ -23,7 +23,7 @@
 <meta name="author" content="Margaret Reed, Yaxin Hu, Yizhou Zhao" />
 
 
-<meta name="date" content="2022-12-12" />
+<meta name="date" content="2022-12-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -84,7 +84,12 @@
 <li class="chapter" data-level="3.2" data-path="data.html"><a href="data.html#cleaning-transformation"><i class="fa fa-check"></i><b>3.2</b> Cleaning / transformation</a></li>
 <li class="chapter" data-level="3.3" data-path="data.html"><a href="data.html#missing-value-analysis"><i class="fa fa-check"></i><b>3.3</b> Missing value analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a></li>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#data-exploration"><i class="fa fa-check"></i><b>4.1</b> Data exploration</a></li>
+<li class="chapter" data-level="4.2" data-path="results.html"><a href="results.html#salary-analysis"><i class="fa fa-check"></i><b>4.2</b> Salary analysis</a></li>
+<li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#required-skills"><i class="fa fa-check"></i><b>4.3</b> Required skills</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -139,42 +144,42 @@ for the job.</p>
 </div>
 <div id="cleaning-transformation" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Cleaning / transformation<a href="data.html#cleaning-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In order to clean the data we first made sure that all of the variable names were in a form that were easy to reference, no spaces or capital letters. Then we made some simplified variables, so that analysis was not so complicated. These variables included job category, agency, and job level. We had to transform the dates into a form that R would recognize. Finally, we made a new variable based on if a job posting had required skills or not.</p>
 </div>
 <div id="missing-value-analysis" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Missing value analysis<a href="data.html#missing-value-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<pre><code>##           recruitment_contact                   hours_shift 
-##                          5321                          3772 
-##                    post_until               work_location_1 
-##                          3510                          3237 
-##        additional_information              preferred_skills 
-##                          1107                           900 
-## full_time_part_time_indicator     minimum_qual_requirements 
-##                           230                            53 
-##                  job_category                  career_level 
+<pre><code>##           Recruitment Contact                    Post Until 
+##                          5630                          3917 
+##                   Hours/Shift               Work Location 1 
+##                          3795                          3305 
+##        Additional Information              Preferred Skills 
+##                          1172                           871 
+## Full-Time/Part-Time indicator     Minimum Qual Requirements 
+##                           215                            64 
+##                  Job Category                  Career Level 
 ##                             2                             2 
-##                      to_apply                        job_id 
+##                      To Apply                        Job ID 
 ##                             1                             0 
-##                        agency                  posting_type 
+##                        Agency                  Posting Type 
 ##                             0                             0 
-##           number_of_positions                business_title 
+##                # Of Positions                Business Title 
 ##                             0                             0 
-##           civil_service_title          title_classification 
+##           Civil Service Title          Title Classification 
 ##                             0                             0 
-##                 title_code_no                         level 
+##                 Title Code No                         Level 
 ##                             0                             0 
-##             salary_range_from               salary_range_to 
+##             Salary Range From               Salary Range To 
 ##                             0                             0 
-##              salary_frequency                 work_location 
+##              Salary Frequency                 Work Location 
 ##                             0                             0 
-##            division_work_unit               job_description 
+##            Division/Work Unit               Job Description 
 ##                             0                             0 
-##         residency_requirement                  posting_date 
+##         Residency Requirement                  Posting Date 
 ##                             0                             0 
-##               posting_updated                  process_date 
-##                             0                             0 
-##               category_simple 
-##                             0</code></pre>
+##               Posting Updated                  Process Date 
+##                             0                             0</code></pre>
 <p><img src="finalproj_files/figure-html/missing-data-1.png" width="672" /></p>
+<p>It seems that the most common missing variable is <code>recruitment_contact</code>, with <code>hours_shift</code> and <code>post_until</code> also being quite common.</p>
 
 </div>
 </div>
