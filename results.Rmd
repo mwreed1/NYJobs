@@ -1,8 +1,10 @@
 ```{r libs, include=F}
 library(tidyverse)
-library(redav)
+#library(redav)
 library(janitor)
 library(scales)
+library(tidyr)
+library(datasets)
 ```
 
 ```{r read-data}
@@ -35,14 +37,15 @@ jobs <- jobs %>%
       str_detect(agency_simple, "Community Board") ~ "Community Board",
       TRUE ~ agency_simple
     ),
-    posting_date = as.Date(posting_date, "%m/%d/%y"),
-    posting_updated = as.Date(posting_updated, "%m/%d/%y"),
+    posting_date = as.Date(posting_date, "%m/%d/%Y"),
+    posting_updated = as.Date(posting_updated, "%m/%d/%Y"),
     level_simple = case_when(
       startsWith(level, "0") ~ "0",
       startsWith(level, "M") ~ "M",
       TRUE ~ "1"
     )
   )
+
 ```
 
 # Results
@@ -70,6 +73,42 @@ jobs %>%
 
 Based on this plot, engineering jobs clearly are the most prolific, with human resources and legal also being common in the NYC job board. The least common job postings by far are administrative support.
 
+Next we want to see the posting type and Full-Time/Part-Time type for different catogories.
+
+```{r}
+
+grouped <- as.data.frame(jobs) %>%
+  filter(!is.na(full_time_part_time_indicator))%>% 
+  group_by(category_simple, posting_type, full_time_part_time_indicator) %>%
+  
+  summarise(Total = sum(number_of_positions))
+
+ggplot(grouped, aes(x = full_time_part_time_indicator, y = Total, fill = posting_type)) +
+  geom_bar(position = "dodge", stat = "identity") +
+  geom_text(aes(label = Total), position = position_dodge(width = 0.9), 
+            vjust = -0.4, color = "grey68") +
+  facet_wrap(~category_simple) +
+  # formatting
+  ylim(0, 1500) +
+  ggtitle("Number of jobs by diffrent categories") +
+  scale_fill_manual(values = c("#b2df8a", "#a6cee3")) +
+  labs(y = "Number of jobs", caption = "Source: nyc.gov") +
+  theme(plot.title = element_text(face = "bold")) +
+  theme(plot.subtitle = element_text(face = "bold", color = "grey35")) +
+  theme(plot.caption = element_text(color = "grey68"))
+```
+We can find that for all the different categories, there are more internal jobs than external jobs, and almost all the jobs all full time, there are few part time jobs.
+
+Next, we wanted to see what categories of jobs have the highest starting salary.
+
+
+```{r}
+p <- ggplot(data = jobs, mapping = aes(
+  x = salary_range_from, y = category_simple))
+p + geom_jitter(alpha = 0.4, size=0.05,color="black")+
+  scale_x_continuous(labels = label_dollar()) 
+```
+Based on the scatter plot, we can see that Engineering seems to have the highest starting salary, Public Safety and Building Operations seems to have the lowest starting salary. Legal and Finance have the largest starting salary variance.We can also find that there are many extremely low starting salary, and we try to find that all of these points' career level are students, maybe many jobs give student only a small amount of salary.
 
 Next, we wanted to see what sort of factors impacted the salary range of a job.
 
@@ -95,7 +134,9 @@ jobs %>%
   theme_minimal()
 ```
 
+
 Technology and data appeared to have the highest average salary potential at around 150k USD Administrative support had the lowest average salary potential at around 50k USD. The 'other' category had the largest salary range, which makes sense because it is a miscellaneous category with several possible job types. 
+
 
 Next we looked at the salary ranges of the different posting agencies.
 
@@ -147,7 +188,7 @@ jobs %>%
   labs(
     x = "Average starting salary (USD)",
     y = "Simplified job level",
-    title = "Average starting salary by job level",
+    title = "Average salary range by job level",
     caption = "Source: nyc.gov"
   ) +
   theme_minimal() +
@@ -157,6 +198,52 @@ jobs %>%
 ```
 
 The levels that started with M had the highest average salary potentials, while the levels that started with numbers tended to be associated with lower average salary potentials. The level with the highest average salary potential is MY. In fact, the lower end of the salary range is higher than the higher end of any other level's average salary range. 
+
+Next we want to see the average starting salary by career level.
+```{r}
+jobs %>%
+  group_by(career_level) %>%
+  summarize(
+    mean_starting = mean(salary_range_from),
+    mean_ending = mean(salary_range_to),
+    .groups = "drop"
+    ) %>%
+  ggplot(aes(y = career_level, color = career_level)) +
+  geom_point(aes(x = mean_starting)) +
+  geom_point(aes(x = mean_ending)) +
+  geom_linerange(aes(xmin = mean_starting, xmax = mean_ending)) + 
+  scale_x_continuous(labels = label_dollar()) +
+  scale_x_continuous(labels = label_dollar()) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(
+    x = "Average starting salary (USD)",
+    y = "Career Level",
+    title = "Average salary range by career level",
+    caption = "Source: nyc.gov"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none"
+  )
+```
+It seems that Student have the lowest salary, and executive have the highest salary, and excutive has the largest salary range.
+
+Then we want to see if there is any relationship between level and career level.
+```{r}
+library(viridis) # viridis color palette
+# create plot
+
+g1<-jobs%>%
+   ggplot(aes(level, career_level)) + 
+   scale_fill_viridis() +
+   labs( title = "Relationship between level and career_level")
+
+
+# show plot
+g1 + geom_bin2d(binwidth = c(5, 5)) # modify bin width
+```
+
+According to the plot, we can see that job level is highly related to career_level, for example, student only can take low level job, from 00 to 02, Entry_level tend to take 00-04 and M1 jobs; Executive tend to take high level jobs from M3 to MY; and Experienced seems to have a high range level of jobs.
 
 After looking at the different factors that influenced salary range, we wanted to see if the salaries of jobs posted changed over time. In order to do so, we only looked at the lower end of the salary ranges for each job posted in our data set. 
 
@@ -177,5 +264,17 @@ jobs %>%
 ```
 
 While there does not appear to be a huge change over time, job salaries seem to drop a bit during July 2020. 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
