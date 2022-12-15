@@ -7,8 +7,8 @@ sources
 cleaning-transformation
 missing-value-analysis
 results
-interactive-component
-conclusion
 data-exploration
 salary-analysis
 required-skills
+interactive-component
+conclusion
