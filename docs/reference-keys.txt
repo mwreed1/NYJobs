@@ -10,3 +10,5 @@ results
 interactive-component
 conclusion
 data-exploration
+salary-analysis
+required-skills

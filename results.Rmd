@@ -1,11 +1,11 @@
 ```{r libs, include=F}
 library(tidyverse)
-#library(redav)
 library(janitor)
 library(scales)
 library(lubridate)
 library(tidyr)
 library(datasets)
+library(viridis)
 ```
 
 ```{r read-data}
@@ -78,38 +78,77 @@ Based on this plot, engineering jobs clearly are the most prolific, with human r
 Next we want to see the posting type and Full-Time/Part-Time type for different catogories.
 
 ```{r}
-
 grouped <- as.data.frame(jobs) %>%
-  filter(!is.na(full_time_part_time_indicator))%>% 
+  filter(!is.na(full_time_part_time_indicator)) %>% 
   group_by(category_simple, posting_type, full_time_part_time_indicator) %>%
-  
   summarise(Total = sum(number_of_positions))
 
-ggplot(grouped, aes(x = full_time_part_time_indicator, y = Total, fill = posting_type)) +
+grouped %>%
+  ggplot(aes(x = full_time_part_time_indicator, y = Total, fill = posting_type)) +
   geom_bar(position = "dodge", stat = "identity") +
-  geom_text(aes(label = Total), position = position_dodge(width = 0.9), 
-            vjust = -0.4, color = "grey68") +
+  geom_text(
+    aes(label = Total), 
+    position = position_dodge(width = 0.9),
+    vjust = -0.4,
+    color = "grey68",
+    size = 2
+    ) +
   facet_wrap(~category_simple) +
   # formatting
   ylim(0, 1500) +
-  ggtitle("Number of jobs by diffrent categories") +
   scale_fill_manual(values = c("#b2df8a", "#a6cee3")) +
   labs(y = "Number of jobs", caption = "Source: nyc.gov") +
-  theme(plot.title = element_text(face = "bold")) +
-  theme(plot.subtitle = element_text(face = "bold", color = "grey35")) +
-  theme(plot.caption = element_text(color = "grey68"))
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold"),
+    plot.subtitle = element_text(face = "bold", color = "grey35"),
+    plot.caption = element_text(color = "grey68")
+    )
 ```
 
+
+```{r}
+jobs %>%
+  filter(!is.na(full_time_part_time_indicator)) %>% 
+  group_by(category_simple, posting_type, full_time_part_time_indicator) %>%
+  summarize(total = sum(number_of_positions), .groups = "drop") %>%
+  ggplot(aes(x = full_time_part_time_indicator, y = total, fill = posting_type)) +
+  geom_col(position = "fill") +
+  facet_wrap(~category_simple) +
+  scale_fill_manual(values = c("#b2df8a", "#a6cee3")) +
+  labs(
+    x = "Full time or part time",
+    y = NULL,
+    title = "Number of jobs posted",
+    fill = "Job posting type",
+    caption = "Source: NYC.gov"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+
 We can find that for all the different categories, there are more internal jobs than external jobs, and almost all the jobs all full time, there are few part time jobs.
+
+
+## Salary analysis
 
 Next, we wanted to see what categories of jobs have the highest starting salary.
 
 
 ```{r}
-p <- ggplot(data = jobs, mapping = aes(
-  x = salary_range_from, y = category_simple))
-p + geom_jitter(alpha = 0.4, size=0.05,color="black")+
-  scale_x_continuous(labels = label_dollar()) 
+ggplot(
+  data = jobs, 
+  mapping = aes(x = salary_range_from, y = category_simple)
+  ) + 
+  geom_jitter(alpha = 0.4, size = 0.05,color = "black") +
+  scale_x_continuous(labels = label_dollar()) +
+  labs(
+    x = "Starting salary (USD)",
+    y = "Job category",
+    caption = "Source: NYC.gov"
+  ) +
+  theme_minimal()
 ```
 
 Based on the scatter plot, we can see that Engineering seems to have the highest starting salary, Public Safety and Building Operations seems to have the lowest starting salary. Legal and Finance have the largest starting salary variance.We can also find that there are many extremely low starting salary, and we try to find that all of these points' career level are students, maybe many jobs give student only a small amount of salary.
@@ -205,13 +244,14 @@ Next we want to see the average starting salary by career level.
 ```{r}
 jobs %>%
   group_by(career_level) %>%
-  filter(!is.na(career_level))%>%
+  filter(!is.na(career_level)) %>%
   summarize(
     mean_starting = mean(salary_range_from),
     mean_ending = mean(salary_range_to),
     .groups = "drop"
     ) %>%
-  ggplot(aes(y=fct_relevel(career_level,"Student","Entry-Level","Experienced (non-manager)","Manager","Executive"), color = career_level)) +
+  ggplot(
+    aes(y = fct_relevel(career_level,"Student","Entry-Level","Experienced (non-manager)","Manager","Executive"), color = career_level)) +
   geom_point(aes(x = mean_starting)) +
   geom_point(aes(x = mean_ending)) +
   geom_linerange(aes(xmin = mean_starting, xmax = mean_ending)) + 
@@ -225,34 +265,29 @@ jobs %>%
     caption = "Source: nyc.gov"
   ) +
   theme_minimal() +
-  theme(
-    legend.position = "none"
-  )
+  theme(legend.position = "none")
 ```
 
-It seems that Student have the lowest salary, and executive have the highest salary, and excutive has the largest salary range.
+It seems that Student have the lowest salary, and executive have the highest salary, and executive has the largest salary range.
 
 Then we want to see if there is any relationship between level and career level.
 
 ```{r}
-library(viridis) # viridis color palette
-# create plot
-
-
-library(viridis) # viridis color palette
-# create plot
-
-g1<-jobs%>%
-    filter(!is.na(career_level))%>%
-   ggplot(aes(x=level, y=fct_relevel(career_level,"Student","Entry-Level","Experienced (non-manager)","Manager","Executive"))) + 
-   scale_fill_viridis() +
-   labs( title = "Relationship between level and career_level")
-
-
-# show plot
-g1 + geom_bin2d(binwidth = c(5, 5)) # modify bin width
-
-
+jobs %>%
+  filter(!is.na(career_level)) %>%
+  ggplot(
+    aes(x = level, y = fct_relevel(career_level,"Student","Entry-Level","Experienced (non-manager)","Manager","Executive"))
+    ) +
+  geom_bin2d(binwidth = c(5, 5)) + # modify bin width
+  scale_fill_viridis() +
+  labs(
+    x = "Level",
+    y = "Career level",
+    title = "Relationship between level and career_level",
+    caption = "Source: NYC.gov"
+    ) +
+  theme_minimal() +
+  theme(legend.position = "none")
 ```
 
 According to the plot, we can see that job level is highly related to career_level, for example, student only can take low level job, from 00 to 02, Entry_level tend to take 00-04 and M1 jobs; Executive tend to take high level jobs from M3 to MY; and Experienced seems to have a high range level of jobs.
@@ -290,7 +325,7 @@ jobs %>%
     ) %>%
   ggplot(aes(x = posting_date, y = salary_range_from)) +
   geom_point(alpha = 0.5) +
-  geom_smooth(se=F) +
+  geom_smooth(se = F) +
   scale_y_continuous(labels = label_dollar()) +
   labs(
     x = "Date",
@@ -305,6 +340,7 @@ jobs %>%
 
 While there does not appear to be a huge change over time, job salaries seemed to peak around 2021. When focusing on 2022, it seems as though salaries peaked around August.
 
+## Required skills
 
 Here we looked into whether or not a job posting requires specific skills. 
 
