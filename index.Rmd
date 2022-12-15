@@ -7,4 +7,6 @@ site: bookdown::bookdown_site
 
 # Introduction
 
+In this project, we work with a dataset containing job listing information around NYC, collected from the City of New York's official jobs website. Various job features are provided, including "Business title", "Agency", "number of positions", "job category", "Full time/Part time", "Salary Range", and so on. We deploy different kinds of EDA methods to comprehend this data. In particular, our interest lies in how the labour market has been behaving in the recent few years in NYC while the pandemic is still around, in terms of how different jobs are paid and the corresponding trend. 
 
+It could be a guide to job seekers showing what positions are more suitable in today's market. In addition, we would love to present the information and results not using boring numbers but visualizations such as bars, dot plots and interactive graphs.
