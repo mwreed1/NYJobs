@@ -203,12 +203,13 @@ Next we want to see the average starting salary by career level.
 ```{r}
 jobs %>%
   group_by(career_level) %>%
+  filter(!is.na(career_level))%>%
   summarize(
     mean_starting = mean(salary_range_from),
     mean_ending = mean(salary_range_to),
     .groups = "drop"
     ) %>%
-  ggplot(aes(y = career_level, color = career_level)) +
+  ggplot(aes(y=fct_relevel(career_level,"Student","Entry-Level","Experienced (non-manager)","Manager","Executive"), color = career_level)) +
   geom_point(aes(x = mean_starting)) +
   geom_point(aes(x = mean_ending)) +
   geom_linerange(aes(xmin = mean_starting, xmax = mean_ending)) + 
@@ -234,7 +235,6 @@ Then we want to see if there is any relationship between level and career level.
 library(viridis) # viridis color palette
 # create plot
 
-   #fct_relevel(reshuffled_level,c("Student","Entry-Level","Experienced #(non-manager)","Manager","Executive"))%>%
 
 library(viridis) # viridis color palette
 # create plot
