@@ -259,30 +259,6 @@ According to the plot, we can see that job level is highly related to career_lev
 
 After looking at the different factors that influenced salary range, we wanted to see if the salaries of jobs posted changed over time. In order to do so, we only looked at the lower end of the salary ranges for each job posted in our data set. 
 
-```{r}
-jobs %>%
-  filter(salary_frequency == "Annual", salary_range_from != 0) %>%
-  ggplot(aes(x = posting_updated, y = salary_range_from)) +
-  geom_point(alpha = 0.5) +
-  geom_smooth(se=F) +
-  scale_y_continuous(labels = label_dollar()) +
-  labs(
-    x = "Date",
-    y = "Starting salary",
-    title = "Starting salary over time",
-    caption = "Source: nyc.gov"
-  ) +
-  theme_minimal()
-```
-
-While there does not appear to be a huge change over time, job salaries seem to drop a bit during July 2020. 
-
-
-
-
-
-
-After looking at the different factors that influenced salary range, we wanted to see if the salaries of jobs posted changed over time. In order to do so, we only looked at the lower end of the salary ranges for each job posted in our data set. 
 
 ```{r}
 jobs %>%
