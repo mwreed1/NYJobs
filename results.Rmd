@@ -99,6 +99,7 @@ ggplot(grouped, aes(x = full_time_part_time_indicator, y = Total, fill = posting
   theme(plot.subtitle = element_text(face = "bold", color = "grey35")) +
   theme(plot.caption = element_text(color = "grey68"))
 ```
+
 We can find that for all the different categories, there are more internal jobs than external jobs, and almost all the jobs all full time, there are few part time jobs.
 
 Next, we wanted to see what categories of jobs have the highest starting salary.
@@ -110,22 +111,11 @@ p <- ggplot(data = jobs, mapping = aes(
 p + geom_jitter(alpha = 0.4, size=0.05,color="black")+
   scale_x_continuous(labels = label_dollar()) 
 ```
+
 Based on the scatter plot, we can see that Engineering seems to have the highest starting salary, Public Safety and Building Operations seems to have the lowest starting salary. Legal and Finance have the largest starting salary variance.We can also find that there are many extremely low starting salary, and we try to find that all of these points' career level are students, maybe many jobs give student only a small amount of salary.
 
 Next, we wanted to see what sort of factors impacted the salary range of a job.
 
-In order to explore our data, we first wanted to look at the distribution of different job postings by category.
-
-
-Technology and data appeared to have the highest average salary potential at around 150k USD Administrative support had the lowest average salary potential at around 50k USD. The 'other' category had the largest salary range, which makes sense because it is a miscellaneous category with several possible job types. 
-
-
-Next we looked at the salary ranges of the different posting agencies.
-
-Based on this plot, engineering jobs clearly are the most prolific, with human resources and legal also being common in the NYC job board. The least common job postings by far are administrative support.
-
-
-Next, we wanted to see what sort of factors impacted the salary range of a job.
 
 ```{r plot1b}
 jobs %>%
@@ -239,6 +229,7 @@ jobs %>%
     legend.position = "none"
   )
 ```
+
 It seems that Student have the lowest salary, and executive have the highest salary, and excutive has the largest salary range.
 
 Then we want to see if there is any relationship between level and career level.
@@ -285,14 +276,6 @@ jobs %>%
 ```
 
 While there does not appear to be a huge change over time, job salaries seem to drop a bit during July 2020. 
-
-
-
-
-
-
-
-
 
 
 
