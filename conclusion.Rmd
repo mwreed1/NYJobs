@@ -1,2 +1,10 @@
 # Conclusion
 
+To summarise, we have looked through this dataset from many perspectives and had a clear picture of the labour market in NYC.
+
+Firstly, We have discovered that Engineering, Human Resources and Law-related industries have the most available positions for employees. Secondly, Technological, Financial, and Engineering companies tend to offer the highest salary on average. Also, most posting jobs require specific skills regardless of positions and industries. 
+
+There are also limitations to our report. For example, the dataset only includes jobs provided by the City of New York's official job site, not covering private organizations and companies such as private schools or restaurants. Another issue is that most data available are from 2022, which prevents us from analyzing the overall effect of the pandemic. Plus, the labour market is versatile, so the results hold little prediction accuracy for the future. Therefore, we must keep monitoring the job posting conditions along with time.
+
+Completing a full exploratory data analysis has helped us deploy various visualizations more flexibly and fluently. However, we have learnt that cleaning and transforming the raw dataset could be a highly challenging problem. Also, We should keep improving the graphs to make them more accessible and comprehensible to non-professionals. 
+
