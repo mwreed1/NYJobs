@@ -111,23 +111,28 @@ function update(data) {
       .attr("height", function(d) { return height - y(d.value); })
       .attr("fill", "#7b6888")
 
+var rect=svg.selectAll("rect").on("mouseover", function() {
+               //highlight
+                 d3.select(this).style("fill","#BA5C25");
+                })
+            .on("mouseout", function(d) {
+                 d3.select(this).style("fill","#7b6888");
+                });
+
   // If less group in the new dataset, I delete the ones not in use anymore
   u
     .exit()
     .remove()
+    
+      
+    
 }
 update(data1)
-// Initialize the plot with the first dataset
 
 
 
-var drag_handler = d3.drag()
-    .on("drag", function(d) {
-          d3.select(this)
-            .attr("cx", d.x = d3.event.x  )
-            .attr("cy", d.y = d3.event.y  );
-            });
-drag_handler(svg_circ)            
+
+
 </script>
 </body>
 
