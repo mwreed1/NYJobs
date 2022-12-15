@@ -241,17 +241,18 @@ jobs %>%
 The levels that started with M had the highest average salary potentials, while the levels that started with numbers tended to be associated with lower average salary potentials. The level with the highest average salary potential is MY. In fact, the lower end of the salary range is higher than the higher end of any other level's average salary range. 
 
 Next we want to see the average starting salary by career level.
+
 ```{r}
 jobs %>%
   group_by(career_level) %>%
-  filter(!is.na(career_level)) %>%
+  filter(!is.na(career_level), salary_frequency == "Annual") %>%
   summarize(
     mean_starting = mean(salary_range_from),
     mean_ending = mean(salary_range_to),
     .groups = "drop"
     ) %>%
   ggplot(
-    aes(y = fct_relevel(career_level,"Student","Entry-Level","Experienced (non-manager)","Manager","Executive"), color = career_level)) +
+    aes(y = fct_relevel(career_level, "Entry-Level","Experienced (non-manager)","Manager","Executive"), color = career_level)) +
   geom_point(aes(x = mean_starting)) +
   geom_point(aes(x = mean_ending)) +
   geom_linerange(aes(xmin = mean_starting, xmax = mean_ending)) + 
