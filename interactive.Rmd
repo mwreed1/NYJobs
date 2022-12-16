@@ -111,7 +111,7 @@ function update(data) {
       .attr("height", function(d) { return height - y(d.value); })
       .attr("fill", "#7b6888")
 
-var rect=svg.selectAll("rect").on("mouseover", function() {
+var rect = svg.selectAll("rect").on("mouseover", function(d, i) {
                //highlight
                  d3.select(this).style("fill","#BA5C25");
                 })
