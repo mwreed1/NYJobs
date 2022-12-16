@@ -1,10 +1,22 @@
 # Conclusion
 
+## Exploration
 To summarise, we have looked through this dataset from many perspectives and had a clear picture of the labour market in NYC.
-
 Firstly, We have discovered that Engineering, Human Resources and Law-related industries have the most available positions for employees. Secondly, Technological, Financial, and Engineering companies tend to offer the highest salary on average. Also, most posting jobs require specific skills regardless of positions and industries. 
 
+## Limitations
 There are also limitations to our report. For example, the dataset only includes jobs provided by the City of New York's official job site, not covering private organizations and companies such as private schools or restaurants. Another issue is that most data available are from 2022, which prevents us from analyzing the overall effect of the pandemic. Plus, the labour market is versatile, so the results hold little prediction accuracy for the future. Therefore, we must keep monitoring the job posting conditions along with time.
 
-Completing a full exploratory data analysis has helped us deploy various visualizations more flexibly and fluently. However, we have learnt that cleaning and transforming the raw dataset could be a highly challenging problem. Also, We should keep improving the graphs to make them more accessible and comprehensible to non-professionals. 
+## Future directions
+Maybe we can find more NYC job data from multiple sources, and combined them for analysis. And we can also find some covid-19 data and discover that if covid-19 pandemic has an effect on job numbers and job salaries.Also, We should keep improving the graphs to make them more accessible and comprehensible to non-professionals. 
+
+
+## Lessons learned
+We learnt a lot after finishing this project:
+(1)Techniques for cleaning and preprocessing data, including handling missing values and outliers.
+(2)Techniques for visualizing and analyzing data in R, including selecting appropriate visualizations and using R packages such as ggplot2.
+(3)Insights into the job market in New York City, including trends in industries, job titles, and salary ranges.
+(4)Skills in using data to answer questions or test hypotheses about the job market in New York.
+(5)Strategies for communicating findings effectively through visualizations and written analysis.
+
 
