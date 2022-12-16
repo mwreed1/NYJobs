@@ -325,6 +325,7 @@ jobs %>%
   theme_minimal()
 ```
 
+
 ```{r}
 jobs %>%
   filter(
@@ -348,6 +349,8 @@ jobs %>%
 
 
 While there does not appear to be a huge change over time, job salaries seemed to peak around 2021. When focusing on 2022, it seems as though salaries peaked around August.
+
+Some possible reasons for salary trends in New York City could include changes in the local job market, such as shifts in demand for certain industries or skills, changes in the overall economy, or changes in government policies. It is also possible that there may be seasonal or cyclical patterns in salary trends, such as a tendency for salary negotiations to occur at certain times of the year.
 
 ## Required skills
 
