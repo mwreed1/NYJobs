@@ -12,3 +12,7 @@ salary-analysis
 required-skills
 interactive-component
 conclusion
+exploration
+limitations
+future-directions
+lessons-learned
