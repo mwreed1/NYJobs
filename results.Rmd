@@ -152,9 +152,9 @@ ggplot(
 ```
 
 Based on the scatter plot, we can see that Engineering seems to have the highest starting salary, Public Safety and Building Operations seems to have the lowest starting salary. Legal and Finance have the largest starting salary variance.We can also find that there are many extremely low starting salary, and we try to find that all of these points' career level are students, maybe many jobs give student only a small amount of salary.
+It is also important to consider that starting salaries may not necessarily reflect long-term earning potential or the overall value of a job. Factors such as job satisfaction, opportunities for advancement, and the potential for skills development can all play a role in the overall value of a job. Additionally, starting salaries may vary based on individual negotiation skills and the specific employer or position.
 
 Next, we wanted to see what sort of factors impacted the salary range of a job.
-
 
 ```{r plot1b}
 jobs %>%
@@ -269,7 +269,7 @@ jobs %>%
   theme(legend.position = "none")
 ```
 
-It seems that Student have the lowest salary, and executive have the highest salary, and executive has the largest salary range.
+It seems that Entry-Level has the lowest salary(student level is not shown in this graph, because all the salary data for student level is hourly); executive have the highest salary and also has the largest salary range.
 
 Then we want to see if there is any relationship between level and career level.
 
@@ -292,6 +292,14 @@ jobs %>%
 ```
 
 According to the plot, we can see that job level is highly related to career_level, for example, student only can take low level job, from 00 to 02, Entry_level tend to take 00-04 and M1 jobs; Executive tend to take high level jobs from M3 to MY; and Experienced seems to have a high range level of jobs.
+
+Some possible explanations:
+
+(1)Higher job levels may require more education, experience, or specialized skills, which may be acquired through career development and advancement. As a result, people at higher career levels may be more qualified for higher job levels.
+
+(2)Higher job levels may come with more responsibility and a higher level of decision-making authority, which may require more experience or leadership skills. As a result, people at higher career levels may be more likely to be considered for these positions.
+
+(3)The job market may be more competitive for higher job levels, and as a result, employers may prioritize candidates with more experience or advanced degrees. This could lead to higher career levels being more strongly associated with higher job levels.
 
 After looking at the different factors that influenced salary range, we wanted to see if the salaries of jobs posted changed over time. In order to do so, we only looked at the lower end of the salary ranges for each job posted in our data set. 
 

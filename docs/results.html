@@ -125,15 +125,16 @@
 <p><img src="finalproj_files/figure-html/plot2-1.png" width="672" /></p>
 <p>Based on this plot, engineering jobs clearly are the most prolific, with human resources and legal also being common in the NYC job board. The least common job postings by far are administrative support.</p>
 <p>Next we want to see the posting type and Full-Time/Part-Time type for different catogories.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>We can find that for all the different categories, there are more internal jobs than external jobs, and almost all the jobs all full time, there are few part time jobs.</p>
 </div>
 <div id="salary-analysis" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Salary analysis<a href="results.html#salary-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Next, we wanted to see what categories of jobs have the highest starting salary.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p>Based on the scatter plot, we can see that Engineering seems to have the highest starting salary, Public Safety and Building Operations seems to have the lowest starting salary. Legal and Finance have the largest starting salary variance.We can also find that there are many extremely low starting salary, and we try to find that all of these points’ career level are students, maybe many jobs give student only a small amount of salary.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>Based on the scatter plot, we can see that Engineering seems to have the highest starting salary, Public Safety and Building Operations seems to have the lowest starting salary. Legal and Finance have the largest starting salary variance.We can also find that there are many extremely low starting salary, and we try to find that all of these points’ career level are students, maybe many jobs give student only a small amount of salary.
+It is also important to consider that starting salaries may not necessarily reflect long-term earning potential or the overall value of a job. Factors such as job satisfaction, opportunities for advancement, and the potential for skills development can all play a role in the overall value of a job. Additionally, starting salaries may vary based on individual negotiation skills and the specific employer or position.</p>
 <p>Next, we wanted to see what sort of factors impacted the salary range of a job.</p>
 <p><img src="finalproj_files/figure-html/plot1b-1.png" width="672" /></p>
 <p>Technology and data appeared to have the highest average salary potential at around 150k USD Administrative support had the lowest average salary potential at around 50k USD. The ‘other’ category had the largest salary range, which makes sense because it is a miscellaneous category with several possible job types.</p>
@@ -141,23 +142,27 @@
 <p><img src="finalproj_files/figure-html/plot3-1.png" width="672" /></p>
 <p>The Municipal Water Fin Authority posted jobs with the highest average salary potential, at around 140k USD. The Business Integrity Commission posted jobs with the lowest average salary potential, around 55k USD.
 Next we looked into how a job’s level impacted its salary. We split the level into three categories based on the code given to the level.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <p>The levels that started with M had the highest average salary potentials, while the levels that started with numbers tended to be associated with lower average salary potentials. The level with the highest average salary potential is MY. In fact, the lower end of the salary range is higher than the higher end of any other level’s average salary range.</p>
 <p>Next we want to see the average starting salary by career level.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<p>It seems that Student have the lowest salary, and executive have the highest salary, and executive has the largest salary range.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>It seems that Entry-Level has the lowest salary(student level is not shown in this graph, because all the salary data for student level is hourly); executive have the highest salary and also has the largest salary range.</p>
 <p>Then we want to see if there is any relationship between level and career level.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>According to the plot, we can see that job level is highly related to career_level, for example, student only can take low level job, from 00 to 02, Entry_level tend to take 00-04 and M1 jobs; Executive tend to take high level jobs from M3 to MY; and Experienced seems to have a high range level of jobs.</p>
+<p>Some possible explanations:</p>
+<p>(1)Higher job levels may require more education, experience, or specialized skills, which may be acquired through career development and advancement. As a result, people at higher career levels may be more qualified for higher job levels.</p>
+<p>(2)Higher job levels may come with more responsibility and a higher level of decision-making authority, which may require more experience or leadership skills. As a result, people at higher career levels may be more likely to be considered for these positions.</p>
+<p>(3)The job market may be more competitive for higher job levels, and as a result, employers may prioritize candidates with more experience or advanced degrees. This could lead to higher career levels being more strongly associated with higher job levels.</p>
 <p>After looking at the different factors that influenced salary range, we wanted to see if the salaries of jobs posted changed over time. In order to do so, we only looked at the lower end of the salary ranges for each job posted in our data set.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>While there does not appear to be a huge change over time, job salaries seemed to peak around 2021. When focusing on 2022, it seems as though salaries peaked around August.</p>
 </div>
 <div id="required-skills" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Required skills<a href="results.html#required-skills" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Here we looked into whether or not a job posting requires specific skills.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <p>As the seniority increases, so does the percentage of postings that require previous skills. This makes sense based on what we expected.</p>
 
 </div>
